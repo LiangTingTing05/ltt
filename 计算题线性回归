@@ -1,0 +1,21 @@
+import numpy as np
+import pandas as pd
+import matplotlib
+import matplotlib.pyplot as plt
+import sklearn
+from sklearn import linear_model
+data=pd.read_csv("D:\\car (2).csv",delimiter="\t",engine='python')
+x=np.c_[data['x']]
+y=np.c_[data['y']]
+data.plot(kind='scatter',x='x',y='y')
+plt.show()
+lr_model=linear_model.LinearRegression()
+lr_model.fit(x,y)
+print("斜率：%s,截距：%s"% (lr_model.coef_[0][0],lr_model.intercept_[0]))
+print("估计模型为：y=%sx+%sy"%(lr_model.coef_[0][0],lr_model.intercept_[0]))
+data.plot(kind='scatter',x='x',y='y')
+plt.plot(x,lr_model.predict(x.reshape(-1,1)),color='red',linewidth=4)
+plt.show()
+#对新的问题进行预测
+x_new=[[9]]
+print(lr_model.predict(x_new))
